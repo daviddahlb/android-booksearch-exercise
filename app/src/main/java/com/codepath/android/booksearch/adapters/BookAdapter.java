@@ -55,6 +55,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
         // Return a new holder instance
         BookAdapter.ViewHolder viewHolder = new BookAdapter.ViewHolder(bookView);
+        
         return viewHolder;
     }
 
