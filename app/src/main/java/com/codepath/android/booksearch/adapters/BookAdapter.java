@@ -26,6 +26,15 @@ import java.util.List;
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     private List<Book> mBooks;
     private Context mContext;
+    private OnItemClickListenter mListener;
+
+    public interface OnItemClickListenter{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListenter listener){
+        mListener = listener;
+    }
 
     // View lookup cache
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -42,7 +51,18 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             ivCover = (ImageView)itemView.findViewById(R.id.ivBookCover);
             tvTitle = (TextView)itemView.findViewById(R.id.tvTitle);
             tvAuthor = (TextView)itemView.findViewById(R.id.tvAuthor);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
+            //parentLayout = itemView.findViewById(R.id.parent_layout);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -80,6 +100,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
                 .load(Uri.parse(book.getCoverUrl()))
                 .placeholder(R.drawable.ic_nocover)
                 .into(viewHolder.ivCover);
+
+        //costly to do this in onBindViewHolder
 /*        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener(){
 
             @Override

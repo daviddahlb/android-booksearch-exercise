@@ -8,10 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.android.booksearch.R;
 import com.codepath.android.booksearch.adapters.BookAdapter;
@@ -30,7 +32,7 @@ import cz.msebera.android.httpclient.Header;
 import static com.codepath.android.booksearch.R.id.rvBooks;
 
 
-public class BookListActivity extends AppCompatActivity {
+public class BookListActivity extends AppCompatActivity implements BookAdapter.OnItemClickListenter {
     private RecyclerView rvBooks;
     private BookAdapter bookAdapter;
     private BookClient client;
@@ -58,6 +60,8 @@ public class BookListActivity extends AppCompatActivity {
 
         // Set layout manager to position the items
         rvBooks.setLayoutManager(new LinearLayoutManager(this));
+
+        bookAdapter.setOnItemClickListener(BookListActivity.this);
     }
 
     // Executes an API call to the OpenLibrary search endpoint, parses the results
@@ -138,5 +142,13 @@ public class BookListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(this, BookDetailActivity.class);
+        Book clickedBook = abooks.get(position);
+        //put extra
+        startActivity(intent);
     }
 }
