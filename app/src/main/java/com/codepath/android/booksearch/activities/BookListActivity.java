@@ -32,7 +32,7 @@ import cz.msebera.android.httpclient.Header;
 import static com.codepath.android.booksearch.R.id.rvBooks;
 
 
-public class BookListActivity extends AppCompatActivity implements BookAdapter.OnItemClickListenter {
+public class BookListActivity extends AppCompatActivity implements BookAdapter.OnItemClickListener {
     private RecyclerView rvBooks;
     private BookAdapter bookAdapter;
     private BookClient client;
