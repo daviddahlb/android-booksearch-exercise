@@ -26,13 +26,13 @@ import java.util.List;
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     private List<Book> mBooks;
     private Context mContext;
-    private OnItemClickListenter mListener;
+    private OnItemClickListener mListener;
 
-    public interface OnItemClickListenter{
+    public interface OnItemClickListener{
         void onItemClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListenter listener){
+    public void setOnItemClickListener(OnItemClickListener listener){
         mListener = listener;
     }
 
@@ -51,7 +51,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             ivCover = (ImageView)itemView.findViewById(R.id.ivBookCover);
             tvTitle = (TextView)itemView.findViewById(R.id.tvTitle);
             tvAuthor = (TextView)itemView.findViewById(R.id.tvAuthor);
-            //parentLayout = itemView.findViewById(R.id.parent_layout);
+            parentLayout = itemView.findViewById(R.id.parent_book_layout);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -101,17 +102,14 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
                 .placeholder(R.drawable.ic_nocover)
                 .into(viewHolder.ivCover);
 
-        //costly to do this in onBindViewHolder
-/*        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener(){
+        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, BookDetailActivity.class);
                 mContext.startActivity(intent);
             }
-        });*/
-        // Return the completed view to render on screen
-
+        });
     }
 
     // Returns the total count of items in the list
